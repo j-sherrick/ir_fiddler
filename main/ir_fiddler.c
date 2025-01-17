@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include <driver/rmt_rx.h>
@@ -32,7 +31,7 @@ static void configure_ir(rmt_channel_handle_t rx) {
   ESP_ERROR_CHECK(rmt_new_rx_channel(&rx_chan_config, &rx));
 }
 
-static bool example_rmt_rx_done_callback(rmt_channel_handle_t channel, const rmt_rx_done_event_data_t *edata, void *user_data) {
+static bool rmt_rx_done_callback(rmt_channel_handle_t channel, const rmt_rx_done_event_data_t *edata, void *user_data) {
   BaseType_t high_task_wakeup = pdFALSE;
   QueueHandle_t receive_queue = (QueueHandle_t) user_data;
   // send the received RMT symbols to the parser task
